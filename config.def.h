@@ -58,17 +58,19 @@ static const char unknown_str[] = "n/a";
  * uid                 UID of current user             NULL
  * uptime              system uptime                   NULL
  * username            username of current user        NULL
+ * alsa_master_vol     ALSA Master device volume       NULL
  * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
  *                                                     NULL on OpenBSD/FreeBSD
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument */
-	{ ram_used, "%sB",          NULL },
-	{ swap_used, "|%sB | ",        NULL },
-	{ cpu_perc, "cpu:%s%% | ",           NULL },
-	{ disk_free, "/boot:%sB ",   "/boot" },
-	{ disk_free, "/:%sB | ",       "/" },
-	{ datetime, "%s",           "%a %Y.%-m.%-d %-I:%M %p %Z" },
+	/* function        format       argument */
+	{ alsa_master_vol, "🔉 %s | ",  NULL },
+	{ ram_used,        " %sB",     NULL },
+	{ swap_used,       "|%sB | ",   NULL },
+	{ cpu_perc,        " %s%% | ", NULL },
+	{ disk_free,       "⛁ %sB",     "/boot" },
+	{ disk_free,       "|%sB | ",   "/" },
+	{ datetime,        "%s",        "%a %Y.%-m.%-d %-I:%M %p %Z" },
 };
