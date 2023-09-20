@@ -39,6 +39,7 @@
 	battery_perc(const char *bat)
 	{
 		int cap_perc;
+		char *icon;
 		char path[PATH_MAX];
 
 		if (esnprintf(path, sizeof(path), POWER_SUPPLY_CAPACITY, bat) < 0)
@@ -46,7 +47,12 @@
 		if (pscanf(path, "%d", &cap_perc) != 1)
 			return NULL;
 
-		return bprintf("%d", cap_perc);
+		icon = (cap_perc < 20 ? ""
+			: cap_perc < 40 ? ""
+			: cap_perc < 60 ? ""
+			: cap_perc < 80 ? ""
+			: "");
+		return bprintf("%s %d", icon, cap_perc);
 	}
 
 	const char *
@@ -56,10 +62,10 @@
 			char *state;
 			char *symbol;
 		} map[] = {
-			{ "Charging",    "+" },
-			{ "Discharging", "-" },
-			{ "Full",        "o" },
-			{ "Not charging", "o" },
+			{ "Charging",    "" },
+			{ "Discharging", "" },
+			{ "Full",        "" },
+			{ "Not charging", "" },
 		};
 		size_t i;
 		char path[PATH_MAX], state[12];
